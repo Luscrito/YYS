@@ -4,7 +4,7 @@ spring:
   application:
     name: product-client
   profiles:
-    active: dev
+    active: k8s
 ribbon:
   eureka:
     enable: true

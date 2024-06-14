@@ -4,7 +4,7 @@ spring:
   application:
     name: product-service
   profiles:
-    active: dev
+    active: k8s
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/tb_product?characterEncoding=utf-8&useSSL=false
     username: hit
