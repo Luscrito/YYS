@@ -1,0 +1,26 @@
+server:
+  port: 8038
+spring:
+  application:
+    name: user-client
+  profiles:
+    active: k8s
+ribbon:
+  eureka:
+    enable: true
+feign:
+  hystrix:
+    enabled: true #在 feign 中开启 hystrix 熔断机制
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    #下面一定要写 true
+    fetch-registry: true
+    initial-instance-info-replication-interval-seconds: 10
+    registry-fetch-interval-seconds: 5
+    instance:
+      prefer-ip-address: true #使用 ip 地址向 eureka server 进行注册
+      lease-renewal-interval-in-seconds: 5 #续约间隔时间
+      lease-expiration-duration-in-seconds: 15 #续约到期时间

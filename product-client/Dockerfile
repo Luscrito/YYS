@@ -3,5 +3,5 @@ LABEL maintainer=me
 ENV JAVA_ARGS="-Dfile.encoding=UTF8 -Duser.timezone=GMT+08"
 ENV JAR_FILE="product-client.jar"
 COPY ./target/${JAR_FILE} ./
-EXPOSE 8888
+EXPOSE 8018
 CMD java -jar ${JAVA_ARGS} ${JAVA_OPTS} /${JAR_FILE}

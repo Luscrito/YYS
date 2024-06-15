@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import microservicedemo.productservice.mapper.ProductMapper;
 import microservicedemo.productservice.po.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import microservicedemo.productservice.po.Result;
+import org.apache.ibatis.annotations.Delete;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 /**
  * 商品的服务控制层
@@ -20,11 +21,10 @@ public class ProductController {
      * 根据商品 id 查询商品
      */
     @GetMapping("/findByProductId/{productId}")
-    public Product findByProductId(@PathVariable Long productId) throws
-            InterruptedException {
+    public Product findByProductId(@PathVariable Long productId) throws InterruptedException {
         Product product = productMapper.findByProductId(productId);
-        Thread.sleep(2000);
-        log.info("-------------OK /findByProductId/{productId}---------");
+        //Thread.sleep(2000);
+        log.info("-------------OK /findByProductId/{productId}--------------------");
         return product;
     }
     /**
@@ -36,4 +36,27 @@ public class ProductController {
         log.info("-------------OK queryAllProduct--------------------");
         return productList;
     }
+
+    @PostMapping("/products/add")
+    public Result addProduct(@RequestBody Product product) throws InterruptedException {
+        log.info("-------------OK add Product!-------------");
+        Thread.sleep(2000);
+        productMapper.addProduct(product);
+        return new Result(1);
+    }
+
+    @PutMapping("/products/update")
+    public Result updateProduct(@RequestBody Product product){
+        log.info("-------------OK update Product!-------------");
+        productMapper.updateProduct(product);
+        return new Result(1);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public Result deleteProduct(@PathVariable long id){
+        log.info("Product with ID {} is being deleted.", id);
+        productMapper.deleteProduct(id);
+        return new Result(1);
+    }
+
 }
